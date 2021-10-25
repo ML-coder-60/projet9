@@ -1,9 +1,8 @@
 from django import forms
-from . import models
+from authentication.models import User
 
 
-class PhotoForm(forms.ModelForm):
-    class Meta:
-        model = models.Photo
-        fields = ['image', 'caption']
+class SubscriptionForm(forms.Form):
+    users = forms.ModelChoiceField(User.objects.all().order_by('username'))
+
 

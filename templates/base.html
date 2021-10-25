@@ -1,13 +1,27 @@
+{% load static %}
 <html>
     <head>
-        <title>LITReview</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}" />
+        <title>LITReview - {% block title %} Bienvenue {% endblock %} </title>
     </head>
-    <body>
-        <h1>LITReview</h1>
-        {% block content %}{% endblock content %}
-        {%  if user.is_authenticated %}
-            <p>Vous êtes connecté en tant que {{ request.user }}. <a href="{% url 'logout' %}">Se déconnecter</a></p>
-            <p>Voulez-vous <a href="{% url 'password_change' %}">changer votre mot de passe ?</a></p>
-        {% endif %}
+    <body id="{% block bodyId %}genericPage{% endblock %}">
+        <header>
+            <div class="Logo">  <img src="../static/img/16004297044411_P7.png" alt="LITReview"> </div>
+            <div class="center">LITReview</div>
+            <nav class="menu">
+                {%  if user.is_authenticated %}
+                <ul>
+                    <li><a href="#">Flux</a></li>
+                    <li><a href="#">Posts</a></li>
+                    <li><a href="{% url 'subscription' %}">Abonnements</a></li>
+                    <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+                </ul>
+                {% endif %}
+            </nav>
+        </header>
+        <section class="content">
+            {% block content %}{% endblock content %}
+        </section>
     </body>
 </html>

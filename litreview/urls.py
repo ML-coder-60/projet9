@@ -19,6 +19,7 @@ from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 
 import blog.views
+import blog.register
 import authentication.views
 
 urlpatterns = [
@@ -34,14 +35,7 @@ urlpatterns = [
         LogoutView.as_view(next_page='/'),
         name='logout'
     ),
-    path('change-password/', PasswordChangeView.as_view(
-        template_name='authentication/password_change_form.html'),
-         name='password_change'
-         ),
-    path('change-password-done/', PasswordChangeDoneView.as_view(
-        template_name='authentication/password_change_done.html'),
-         name='password_change_done'
-         ),
     path('signup/', authentication.views.signup_page, name='signup'),
     path('home/', blog.views.home, name='home'),
+    path('subscription/', blog.register.subscription, name='subscription'),
 ]

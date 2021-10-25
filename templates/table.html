@@ -1,0 +1,12 @@
+<h2>{{title}}</h2>
+<table border="1">
+    {% for data in users %}
+        <tr>
+            <td>{{data}}</td>
+            {% if submit %}
+                <td>submit</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+

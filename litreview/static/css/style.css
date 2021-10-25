@@ -1,0 +1,118 @@
+html {
+    margin: 0;
+    padding: 0;
+    font-size: min(max(1rem, calc(1rem + ((1vw - 0.48rem) * 1.38))), 2rem);
+}
+
+nav li {
+    margin-right: 10px;   /* 15px entre chaque élemenents */
+}
+
+body {
+    font-family: "Times New Roman", Times, "Liberation Serif", FreeSerif, serif;
+    color: whitesmoke;
+    background-color: black;
+
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    background-color: #005777;
+    justify-content: space-around;
+}
+
+.center{
+    flex: 0.1;
+    text-align:  center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.logo{
+    flex: 0.1;
+    text-align:  center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.menu {
+    text-align:  center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.login{
+    flex: 0.5;
+    text-align:  right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    width: 60%;
+    text-align: center;
+}
+nav ul {
+    text-align:  center;
+    display: flex;
+    list-style-type: none;  /* Supp les puces */
+    justify-content: space-around;
+}
+ul.errorlist{
+    text-align:  left;
+    list-style-type: none;
+    width: 30%;
+    margin: 5px;
+}
+
+form#ul {
+    text-align: center;
+}
+
+span {
+    display: none;
+}
+
+a {
+    color: #3b5998
+}
+
+a:link {
+    text-decoration:none;   /* Supp  le soulignement des liens Html */
+    color: inherit;         /* force la couleur des liens avec la couleur défini dans body  */
+}
+
+a:visited {
+    text-decoration:none;   /* Supp  le soulignement des liens Html */
+    color: inherit;         /* force la couleur des liens avec la couleur défini dans body  */
+}
+
+img{
+    height: auto;
+    width: 50%;
+    object-fit: contain;
+}
+
+table {
+    border: medium solid #000000;
+    width: 90%;
+}
+
+td, th {
+    border: thin solid #005777;
+    width: 80%;
+}
+
+h2 {
+text-align: center;
+}
