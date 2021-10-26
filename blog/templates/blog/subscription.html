@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
+
     <section class="abonnements">
         <div>
             <h2>Suivre d'autres utilisateurs</h2>
-            <form method="post" action="subscribe">
-                {{ form.as_p }}
+            <form method="post">
+                {{ form }}
                 {% csrf_token %}
-                <buton type="submit"></buton>
+                <input type="submit" value="Envoyer">
             </form>
 
 
+
         </div>
-
-        {{ subscribe }}
-
 
         <div>
            {% include 'table.html' with submit='Désabonner' title='Abonnements' users=my_subscription %}
