@@ -37,5 +37,5 @@ urlpatterns = [
     ),
     path('signup/', authentication.views.signup_page, name='signup'),
     path('home/', blog.views.home, name='home'),
-    path('subscription/', blog.register.subscription, name='subscription'),
+    path('subscription/', blog.register.subscription, name='subscription')
 ]

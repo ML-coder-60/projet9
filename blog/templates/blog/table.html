@@ -1,0 +1,20 @@
+<h2> {{title}}</h2>
+<table border="1">
+    {% for user in users %}
+        <tr>
+            {% if submit %}
+                <td>{{user.followed_user}}</td>
+                <td>
+                    <form method="post">
+                         {% csrf_token %}
+                         {{ unsubcribe }}
+                        <input type="hidden" name="followed_user_id" value={{user.followed_user_id}} id="id_unsubcribe">
+                        <button type="submit" >Désabonner</button>
+                    </form>
+                </td>
+            {% else %}
+                <td>{{user.user}}</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>

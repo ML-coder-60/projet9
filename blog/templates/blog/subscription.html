@@ -1,29 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-
     <section class="abonnements">
         <div>
-            <h2>Suivre d'autres utilisateurs</h2>
+            <h2>Voulez-vous suivre d'autres utilisateurs</h2>
             <form method="post">
-                {{ form }}
+                {{ subcribe }}
                 {% csrf_token %}
-                <input type="submit" value="Envoyer">
+                <button type="submit">Envoyer</button>
             </form>
-
-
-
-        </div>
-
-        <div>
-           {% include 'table.html' with submit='Désabonner' title='Abonnements' users=my_subscription %}
         </div>
         <div>
-           {% include 'table.html' with  title='Abonnés' users=my_subscribers %}
+           {% include 'blog/table.html' with submit='Désabonner' title='Vos abonnements' users=my_subscription %}
         </div>
-
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
-        {% endif %}
+        <div>
+           {% include 'blog/table.html' with  title='Vos abonnés' users=my_subscribers %}
+        </div>
     </section>
 {% endblock content %}
 
