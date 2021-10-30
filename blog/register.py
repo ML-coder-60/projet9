@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from blog.models import UserFollows
-from authentication.models import User
 from blog import forms, models
+
 
 @login_required
 def subscription(request):

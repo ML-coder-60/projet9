@@ -18,8 +18,7 @@ from django.urls import path
 
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 
-import blog.views
-import blog.register
+from blog import register, flux, posts
 import authentication.views
 
 urlpatterns = [
@@ -29,13 +28,14 @@ urlpatterns = [
         LoginView.as_view(
             template_name='authentication/login.html',
             redirect_authenticated_user=True),
-        name='login'),
+        name='flux'),
     path(
         'logout/',
         LogoutView.as_view(next_page='/'),
         name='logout'
     ),
     path('signup/', authentication.views.signup_page, name='signup'),
-    path('home/', blog.views.home, name='home'),
-    path('subscription/', blog.register.subscription, name='subscription')
+    path('flux/', flux.feed, name='flux'),
+    path('post/', posts.feed, name='post'),
+    path('subscription/', register.subscription, name='subscription')
 ]

@@ -3,6 +3,6 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def home(request):
-    return render(request, 'blog/home.html')
+def feed(request):
+    return render(request, 'blog/flux.html')
 

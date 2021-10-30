@@ -12,8 +12,8 @@
             <nav class="menu">
                 {%  if user.is_authenticated %}
                 <ul>
-                    <li><a href="#">Flux</a></li>
-                    <li><a href="#">Posts</a></li>
+                    <li><a href="{% url 'flux' %}">Flux</a></li>
+                    <li><a href="{% url 'post' %}">Posts</a></li>
                     <li><a href="{% url 'subscription' %}">Abonnements</a></li>
                     <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
                 </ul>
