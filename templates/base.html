@@ -7,13 +7,13 @@
     </head>
     <body id="{% block bodyId %}genericPage{% endblock %}">
         <header>
-            <div class="Logo">  <img src="../static/img/16004297044411_P7.png" alt="LITReview"> </div>
+            <div class="Logo">  <img src="{% static 'img/16004297044411_P7.png' %}" alt="LITReview"> </div>
             <div class="center">LITReview</div>
             <nav class="menu">
                 {%  if user.is_authenticated %}
                 <ul>
                     <li><a href="{% url 'flux' %}">Flux</a></li>
-                    <li><a href="{% url 'post' %}">Posts</a></li>
+                    <li><a href="{% url 'posts' %}">Posts</a></li>
                     <li><a href="{% url 'subscription' %}">Abonnements</a></li>
                     <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
                 </ul>

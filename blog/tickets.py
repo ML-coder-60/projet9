@@ -1,22 +1,19 @@
+import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from blog import forms
 from blog.models import Ticket
-import datetime
 
 
 @login_required
 def new_ticket(request):
     if request.method == 'POST':
         ticket_form = forms.TicketForm(request.POST)
-        print(ticket_form)
-        print(ticket_form.is_valid())
         if ticket_form.is_valid():
             create_ticket = ticket_form.save(commit=False)
             create_ticket.user = request.user
             create_ticket.time_created = datetime.date
             create_ticket.save()
-            print(create_ticket)
             return redirect('posts')
         return render(request, 'blog/ticket.html', {'ticket_form': ticket_form}, )
     return redirect('posts')
@@ -31,6 +28,7 @@ def edit_ticket(request, ticket_id):
         if 'edit_ticket' in request.POST:
             edit_form = forms.TicketForm(request.POST, instance=ticket)
             if edit_form.is_valid():
+                edit_form.time_created = datetime.date
                 edit_form.save()
                 return redirect('posts')
     context = {

@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.views import LoginView, LogoutView
 
-from blog import register, flux, posts
+from blog import register, flux, posts, tickets
 import authentication.views
 
 urlpatterns = [
@@ -36,6 +36,9 @@ urlpatterns = [
     ),
     path('signup/', authentication.views.signup_page, name='signup'),
     path('flux/', flux.feed, name='flux'),
-    path('post/', posts.feed, name='post'),
+    path('posts/', posts.feed, name='posts'),
+    path('ticket/new', tickets.new_ticket, name='new_ticket'),
+    path('ticket/<int:ticket_id>/edit', tickets.edit_ticket, name='edit_ticket'),
+    path('ticket/<int:ticket_id>/delete', tickets.delete_ticket, name='delete_ticket'),
     path('subscription/', register.subscription, name='subscription')
 ]
