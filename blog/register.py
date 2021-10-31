@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from blog.models import UserFollows
-from blog import forms, models
+from blog import forms
 
 
 @login_required
@@ -39,7 +39,7 @@ def subscription(request):
             if form.is_valid():
                 # select the user/falower_user to the user before del
                 unsubscribe = get_object_or_404(
-                            models.UserFollows,
+                            UserFollows,
                             user=request.user,
                             followed_user_id=request.POST['followed_user_id']
                             )

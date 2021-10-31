@@ -1,5 +1,5 @@
 from django import forms
-from blog.models import UserFollows
+from blog.models import UserFollows, Ticket
 from authentication.models import User
 
 
@@ -29,3 +29,20 @@ class UserSubcribeForm(forms.ModelForm):
     class Meta:
         model = UserFollows
         fields = ['followed_user']
+
+
+class DeleteTicketForm(forms.Form):
+    delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
+
+class EditTicketForm(forms.Form):
+    edit_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
+
+class TicketForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(TicketForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Ticket
+        exclude = ['user', 'time_created']

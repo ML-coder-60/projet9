@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="abonnements">
+        <div class="ask_create_posts">
+            <form method="post" action="/ticket/new" >
+                {{ new_ticket }}
+                {% csrf_token %}
+                <button type="submit">Demander une critique</button>
+            </form>
+            <form method="post">
+                {{ update_ticket }}
+                {% csrf_token %}
+                <button type="submit">Créer une critique</button>
+            </form>
+        </div>
+        <div class="feed">
+            {% for post in posts %}
+                {% if post.content_type == 'TICKET' %}
+                    {% include 'blog/view_ticket.html'  %}
+                {% elif post.content_type == 'REVIEW' %}
+                    {% include 'blog/view_review.html' %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock content %}
