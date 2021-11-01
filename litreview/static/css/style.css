@@ -15,6 +15,10 @@ body {
 
 }
 
+form {
+    margin: auto;
+}
+
 header {
     display: flex;
     flex-direction: row;
@@ -102,6 +106,7 @@ img{
     object-fit: contain;
 }
 
+/* page Abonnements */
 table {
     border: medium solid #000000;
     width: 90%;
@@ -114,4 +119,34 @@ td, th {
 
 h2 {
 text-align: center;
+}
+
+/* css title */
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    margin: 1%;
+    flex: 0.7;
+}
+
+.header_ticket, .post_ticket, .description_ticket, .ask_create_posts{
+    display: flex;
+    justify-content: space-around;
+}
+
+.ask_create_posts, .post_ticket{
+    padding: 1%;
+}
+
+.description_ticket {
+   width: 60%;
+   margin-left: 5%;
+   padding-left: 1%;
+   margin-bottom: 1%;
+   overflow-wrap: break-word;
+}
+
+.ticket, .description_ticket {
+    border: thin solid #005777;
 }

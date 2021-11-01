@@ -1,15 +1,23 @@
-
-<h2>{{ post.title }}</h2>
-{{post.time_created}}
-<p>{{ post.description }}</p>
-<form method="post" >
-    {% csrf_token %}
-    <input type="submit" value="Modifier le ticket" formaction="/ticket/{{post.id}}/edit">
-</form>
-
-<form>
-     {% csrf_token %}
-    <input type="submit" value="Supprimer le ticket" formaction="/ticket/{{post.id}}/delete">
-</form>
-
-
+<section class="ticket">
+    <div class="header_ticket">
+        <h2>{{ post.title }}</h2>
+        <p>{{post.time_created}}</p>
+    </div>
+    <div class="description_ticket">
+            <p>{{ post.description }}</p>
+    </div>
+    <div class="post_ticket">
+        <form method="post" >
+            {% csrf_token %}
+            <input type="submit" value="Modifier le ticket" formaction="/ticket/{{post.id}}/edit">
+        </form>
+        <form>
+             {% csrf_token %}
+            <input type="submit" value="Supprimer le ticket" formaction="/ticket/{{post.id}}/delete">
+        </form>
+        <form>
+            {% csrf_token %}
+            <input type="submit" value="Créer une critique" formaction="#">
+        </form>
+    </div>
+</section>
