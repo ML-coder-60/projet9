@@ -1,21 +1,30 @@
 <section class="ticket">
     <div class="header_ticket">
-        <h2>{{ post.title }}</h2>
+        {% if user.id == post.user_id %}
+           <p> Vous avez demandé une critique </p>
+        {% else %}
+            <p> {{ post_user_id }} a demandé une critique </p>
+        {% endif %}
         <p>{{post.time_created}}</p>
+    </div>
+    <div class="title_ticket">
+        <h2>{{ post.title }}</h2>
     </div>
     <div class="description_ticket">
             <p>{{ post.description }}</p>
     </div>
     <div class="post_ticket">
-        <form method="post" >
-            {% csrf_token %}
-            <input type="submit" value="Modifier le ticket" formaction="/ticket/{{post.id}}/edit">
-        </form>
-        <form>
-             {% csrf_token %}
-            <input type="submit" value="Supprimer le ticket" formaction="/ticket/{{post.id}}/delete">
-        </form>
-        <form>
+        {% if user.id == post.user_id %}
+            <form method="post" >
+                {% csrf_token %}
+                <input type="submit" value="Modifier le ticket" formaction="/ticket/{{post.id}}/edit">
+            </form>
+            <form method="post">
+                 {% csrf_token %}
+                <input type="submit" value="Supprimer le ticket" formaction="/ticket/{{post.id}}/delete">
+            </form>
+        {% endif %}
+        <form method="post">
             {% csrf_token %}
             <input type="submit" value="Créer une critique" formaction="#">
         </form>

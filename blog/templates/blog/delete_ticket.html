@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h3>Supprimer le Ticket : "{{ticket_name}}"  ? </h3>
-    <form method="post">
-        {{ delete_form }}
-        {% csrf_token %}
-        <button type="submit" >Supprimer</button>
-    </form>
+    <div class="delete_ticket">
+        <h3>Supprimer le Ticket : "{{ticket_name}}"  ? </h3>
+        <form method="post">
+            {{ delete_form }}
+            {% csrf_token %}
+            <button type="submit" >Supprimer</button>
+        </form>
+    </div>
 {% endblock content %}

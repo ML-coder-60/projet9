@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>Vous êtes connecté !</p>
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.get_username }}. {{user.id}} Thanks for logging in.</p>
-        {% endif %}
+    <section class="flux">
+        {% include 'blog/feed.html' %}
+    </section>
 {% endblock content %}

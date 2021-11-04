@@ -15,7 +15,7 @@ def new_ticket(request):
             create_ticket.time_created = datetime.date
             create_ticket.save()
             return redirect('posts')
-        return render(request, 'blog/ticket.html', {'ticket_form': ticket_form}, )
+        return render(request, 'blog/create_ticket.html', {'ticket_form': ticket_form}, )
     return redirect('posts')
 
 
@@ -28,7 +28,6 @@ def edit_ticket(request, ticket_id):
         if 'edit_ticket' in request.POST:
             edit_form = forms.TicketForm(request.POST, instance=ticket)
             if edit_form.is_valid():
-                edit_form.time_created = datetime.date
                 edit_form.save()
                 return redirect('posts')
     context = {

@@ -12,7 +12,6 @@ body {
     font-family: "Times New Roman", Times, "Liberation Serif", FreeSerif, serif;
     color: whitesmoke;
     background-color: black;
-
 }
 
 form {
@@ -71,8 +70,10 @@ nav ul {
     list-style-type: none;  /* Supp les puces */
     justify-content: space-around;
 }
+
 ul.errorlist{
     text-align:  left;
+    display: none;
     list-style-type: none;
     width: 30%;
     margin: 5px;
@@ -121,17 +122,19 @@ h2 {
 text-align: center;
 }
 
-/* css title */
-
-.posts {
-    display: flex;
+/* css post flux */
+.posts, .flux {
     flex-direction: column;
     margin: 1%;
     flex: 0.7;
 }
 
-.header_ticket, .post_ticket, .description_ticket, .ask_create_posts{
+/* css ticket */
+.posts, .header_ticket, .post_ticket, .ask_create_posts {
     display: flex;
+}
+
+.header_ticket, .post_ticket, .ask_create_posts{
     justify-content: space-around;
 }
 
@@ -142,11 +145,23 @@ text-align: center;
 .description_ticket {
    width: 60%;
    margin-left: 5%;
-   padding-left: 1%;
    margin-bottom: 1%;
    overflow-wrap: break-word;
+   display: flex;
 }
 
-.ticket, .description_ticket {
+.description_ticket p  {
+    color: azure;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.ticket{
     border: thin solid #005777;
+    margin: 1%;
+}
+
+.title_ticket h2 {
+   margin-left: 5%;
+   text-align: left;
 }

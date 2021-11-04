@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Modifier le ticket</h2>
-    <form method="post">
-        {{ edit_ticket }}
-        {{ edit_form.as_p }}
-        {% csrf_token %}
-        <button type="submit" >Sauvegarder</button>
-    </form>
+    <div class="edit_ticket">
+        <h2>Modifier le ticket</h2>
+        <form method="post">
+            {{ edit_ticket }}
+            {{ edit_form.as_p }}
+            {% csrf_token %}
+            <button type="submit" >Sauvegarder</button>
+        </form>
+    </div>
 {% endblock content %}
