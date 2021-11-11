@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="create_review">
+        <h2>Vous êtes en train de poster en réponse à</h2>
+        {{ ticket_form }}
+        <div class="review">
+            <form method="post">
+                <p> Titre </p>
+                {{review_form.headline}}
+                <p> Note </p>
+                {{review_form.rating}}
+                <p> Commentaire </p>
+                {{review_form.body}}
+                {{ new_review }}
+                <input type="hidden" name="ticket_id" value="{{ticket}}">
+                {% csrf_token %}
+                <p>
+                    <button type="submit" >Envoyer</button>
+                </p>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

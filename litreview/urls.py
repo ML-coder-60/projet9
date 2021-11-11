@@ -18,7 +18,7 @@ from django.urls import path
 
 from django.contrib.auth.views import LoginView, LogoutView
 
-from blog import register, flux, posts, tickets
+from blog import register, flux, posts, tickets, reviews
 import authentication.views
 
 urlpatterns = [
@@ -40,5 +40,13 @@ urlpatterns = [
     path('ticket/new', tickets.new_ticket, name='new_ticket'),
     path('ticket/<int:ticket_id>/edit', tickets.edit_ticket, name='edit_ticket'),
     path('ticket/<int:ticket_id>/delete', tickets.delete_ticket, name='delete_ticket'),
+    path('review/new', reviews.new_review, name='new_review'),
+    path('review/<int:review_id>/edit', reviews.edit_review, name='edit_review'),
+    path('review/<int:review_id>/delete', reviews.delete_review, name='delete_review'),
     path('subscription/', register.subscription, name='subscription')
 ]
+
+"""
+   path('review/<int:ticket_id>/edit', reviews.edit_review, name='edit_review'),
+   path('review/<int:ticket_id>/delete', reviews.delete_review, name='delete_review'),
+"""

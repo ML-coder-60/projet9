@@ -23,7 +23,7 @@ def new_ticket(request):
 def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
     edit_form = forms.TicketForm(instance=ticket)
-    update_ticket = forms.EditTicketForm()
+    tag_update_ticket = forms.EditTicketForm()
     if request.method == 'POST':
         if 'edit_ticket' in request.POST:
             edit_form = forms.TicketForm(request.POST, instance=ticket)
@@ -32,7 +32,7 @@ def edit_ticket(request, ticket_id):
                 return redirect('posts')
     context = {
         'edit_form': edit_form,
-        'edit_ticket': update_ticket
+        'edit_ticket': tag_update_ticket
     }
     return render(request, 'blog/edit_ticket.html', context=context)
 

@@ -1,0 +1,50 @@
+<div class="view_review">
+    <div class="header_review">
+        {% if user.id == post.user_id %}
+           <p> Vous avez publié une critique </p>
+        {% else %}
+            <p> {{ post.user }} a publié une critique </p>
+        {% endif %}
+        <p>{{post.time_created}}</p>
+    </div>
+    <section class="review">
+        <div class="title_review">
+            <h2> {{post.headline}} Note {{post.rating}}  </h2>
+        </div>
+        <div class="comment_review">
+            <p> {{post.body}} </p>
+        </div>
+    </section>
+    <section class="ticket">
+        {%  for ticket in all_ticket %}
+            {% if  post.ticket_id == ticket.id %}
+                <div class="header_ticket">
+                    {% if user.id == ticket.user_id %}
+                        <p> Vous avez demandé une critique </p>
+                    {% else %}
+                        <p> {{ ticket.user }} a demandé une critique </p>
+                    {% endif %}
+                        <p>{{ticket.time_created}}</p>
+                </div>
+                <div class="title_ticket">
+                <h2>{{ ticket.title }}</h2>
+                </div>
+                <div class="description_ticket">
+                    <p>{{ ticket.description }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </section>
+    <div class="post_review">
+        {% if user.id == post.user_id %}
+            <form method="post" >
+                {% csrf_token %}
+                <input type="submit" value="Modifier" formaction="/review/{{post.id}}/edit">
+            </form>
+            <form method="post">
+                 {% csrf_token %}
+                <input type="submit" value="Supprimer" formaction="/review/{{post.id}}/delete">
+            </form>
+        {% endif %}
+    </div>
+</div>

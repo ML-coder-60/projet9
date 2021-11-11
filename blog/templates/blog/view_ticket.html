@@ -3,7 +3,7 @@
         {% if user.id == post.user_id %}
            <p> Vous avez demandé une critique </p>
         {% else %}
-            <p> {{ post_user_id }} a demandé une critique </p>
+            <p> {{ user.id }} a demandé une critique </p>
         {% endif %}
         <p>{{post.time_created}}</p>
     </div>
@@ -17,16 +17,19 @@
         {% if user.id == post.user_id %}
             <form method="post" >
                 {% csrf_token %}
-                <input type="submit" value="Modifier le ticket" formaction="/ticket/{{post.id}}/edit">
+                <input type="submit" value="Modifier" formaction="/ticket/{{post.id}}/edit">
             </form>
             <form method="post">
                  {% csrf_token %}
-                <input type="submit" value="Supprimer le ticket" formaction="/ticket/{{post.id}}/delete">
+                <input type="submit" value="Supprimer" formaction="/ticket/{{post.id}}/delete">
             </form>
         {% endif %}
-        <form method="post">
-            {% csrf_token %}
-            <input type="submit" value="Créer une critique" formaction="#">
-        </form>
+        {% if post.is_review == 0 %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="ticket_id" value="{{post.id}}">
+                <input type="submit" value="Publier une critique" formaction="/review/new">
+            </form>
+        {% endif %}
     </div>
 </section>

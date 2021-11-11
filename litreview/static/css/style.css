@@ -9,7 +9,7 @@ nav li {
 }
 
 body {
-    font-family: "Times New Roman", Times, "Liberation Serif", FreeSerif, serif;
+    font-family: "Arial", "Times New Roman", Times, "Liberation Serif", FreeSerif, serif;
     color: whitesmoke;
     background-color: black;
 }
@@ -130,19 +130,39 @@ text-align: center;
 }
 
 /* css ticket */
-.posts, .header_ticket, .post_ticket, .ask_create_posts {
+.posts, .header_ticket, .post_ticket, .ask_create_posts, .edit_ticket, .ticket, .review, .header_review, .post_review, .create_review {
     display: flex;
 }
 
-.header_ticket, .post_ticket, .ask_create_posts{
+
+.header_ticket, .ask_create_posts, .header_review {
     justify-content: space-around;
 }
 
-.ask_create_posts, .post_ticket{
+.edit_ticket, .ticket  {
+    flex-direction: column;
+    flex-grow: 2;
+}
+
+.create_review, .review {
+    flex-direction: column;
+}
+
+.edit_ticket form {
+    margin-inline-start: 30%;
+    margin-inline-end: 30%
+}
+
+.edit_ticket input, .edit_ticket textarea, .ticket input, .ticket textarea {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.ask_create_posts, .post_ticket, .post_review {
     padding: 1%;
 }
 
-.description_ticket {
+.description_ticket , .comment_review, .rating_review {
    width: 60%;
    margin-left: 5%;
    margin-bottom: 1%;
@@ -150,18 +170,18 @@ text-align: center;
    display: flex;
 }
 
-.description_ticket p  {
+.description_ticket p , .comment_review p  {
     color: azure;
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.ticket{
+.ticket,  .view_review{
     border: thin solid #005777;
     margin: 1%;
 }
 
-.title_ticket h2 {
+.title_ticket h2, .title_review h2 {
    margin-left: 5%;
    text-align: left;
 }

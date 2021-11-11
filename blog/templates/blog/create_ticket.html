@@ -3,9 +3,16 @@
     <div class="create_ticket">
         <h2>Créer un Ticket</h2>
         <form method="post">
-            {{ ticket_form.as_p }}
+            <p> Titre </p>
+            {{ticket_form.title}}
+            <p> Description </p>
+            {{ticket_form.description}}
+            <p> Image </p>
+            {{ticket_form.image}}
             {% csrf_token %}
-            <button type="submit" >Envoyer</button>
+            <p>
+                <button type="submit" >Envoyer</button>
+            </p>
         </form>
     </div>
 {% endblock content %}

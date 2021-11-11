@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="delete_review">
+        <h3>Supprimer la Critique : "{{review_headline}}"  ? </h3>
+        <form method="post">
+            {{ delete_form }}
+            {% csrf_token %}
+            <button type="submit" >Supprimer</button>
+        </form>
+    </div>
+{% endblock content %}

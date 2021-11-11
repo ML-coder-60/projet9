@@ -1,5 +1,6 @@
 from itertools import chain
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.db.models import Q, Count
 from django.contrib.auth.decorators import login_required
 from blog.models import Ticket, Review
 from django.db.models import CharField, Value
@@ -7,10 +8,21 @@ from django.db.models import CharField, Value
 
 @login_required
 def feed(request):
-    ticket = Ticket.objects.filter(user=request.user.id)
-    ticket = ticket.annotate(content_type=Value('TICKET', CharField()))
-    review = Review.objects.filter(user=request.user.id)
-    review = review.annotate(content_type=Value('TICKET', CharField()))
+    ticket = Ticket.objects.filter(
+                user=request.user.id
+                ).annotate(
+                    content_type=Value('TICKET', CharField()),
+                    is_review=Count('review')
+                )
+    ticket_id = [x.id for x in ticket]
+
+    review = Review.objects.filter(
+                    Q(user=request.user.id) |
+                    Q(ticket__in=ticket_id)
+                ).annotate(content_type=Value('REVIEW', CharField()))
+
+    all_ticket = Ticket.objects.all()
+
     posts = sorted(
         chain(ticket, review),
         key=lambda post: post.time_created,
@@ -19,5 +31,8 @@ def feed(request):
     return render(
         request,
         'blog/posts.html',
-        context={'posts': posts}
+        context={
+            'posts': posts,
+            'all_ticket': all_ticket,
+        }
     )

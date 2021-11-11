@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="edit_ticket">
-        <h2>Modifier le ticket</h2>
+        <h2>Modifier la critique</h2>
         <form method="post">
             <p>Titre</p>
-            {{edit_form.title}}
+            {{edit_form.headline}}
+            <p>Note</p>
+            {{edit_form.rating}}
             <p> Description </p>
-            {{edit_form.description}}
-            <p> Image </p>
-            {{edit_form.image}}
+            {{edit_form.body}}
             {{ tag_update_review }}
             {% csrf_token %}
             <p>
