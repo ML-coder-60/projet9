@@ -18,7 +18,7 @@ from django.urls import path
 
 from django.contrib.auth.views import LoginView, LogoutView
 
-from blog import register, flux, posts, tickets, reviews
+from blog import views
 import authentication.views
 
 urlpatterns = [
@@ -35,18 +35,13 @@ urlpatterns = [
         name='logout'
     ),
     path('signup/', authentication.views.signup_page, name='signup'),
-    path('flux/', flux.feed, name='flux'),
-    path('posts/', posts.feed, name='posts'),
-    path('ticket/new', tickets.new_ticket, name='new_ticket'),
-    path('ticket/<int:ticket_id>/edit', tickets.edit_ticket, name='edit_ticket'),
-    path('ticket/<int:ticket_id>/delete', tickets.delete_ticket, name='delete_ticket'),
-    path('review/new', reviews.new_review, name='new_review'),
-    path('review/<int:review_id>/edit', reviews.edit_review, name='edit_review'),
-    path('review/<int:review_id>/delete', reviews.delete_review, name='delete_review'),
-    path('subscription/', register.subscription, name='subscription')
+    path('flux/', views.feed, name='flux'),
+    path('posts/', views.feed, name='posts'),
+    path('ticket/new', views.new_ticket, name='new_ticket'),
+    path('ticket/<int:ticket_id>/edit', views.edit_ticket, name='edit_ticket'),
+    path('ticket/<int:ticket_id>/delete', views.delete_ticket, name='delete_ticket'),
+    path('review/new', views.new_review, name='new_review'),
+    path('review/<int:review_id>/edit', views.edit_review, name='edit_review'),
+    path('review/<int:review_id>/delete', views.delete_review, name='delete_review'),
+    path('subscription/', views.subscription, name='subscription')
 ]
-
-"""
-   path('review/<int:ticket_id>/edit', reviews.edit_review, name='edit_review'),
-   path('review/<int:ticket_id>/delete', reviews.delete_review, name='delete_review'),
-"""

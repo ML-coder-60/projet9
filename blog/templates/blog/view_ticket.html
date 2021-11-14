@@ -3,7 +3,7 @@
         {% if user.id == post.user_id %}
            <p> Vous avez demandé une critique </p>
         {% else %}
-            <p> {{ user.id }} a demandé une critique </p>
+            <p> {{ user }} a demandé une critique </p>
         {% endif %}
         <p>{{post.time_created}}</p>
     </div>
