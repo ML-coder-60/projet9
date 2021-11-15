@@ -2,7 +2,7 @@
 {% block content %}
     <div class="create_ticket">
         <h2>Créer un Ticket</h2>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <p> Titre </p>
             {{ticket_form.title}}
             <p> Description </p>

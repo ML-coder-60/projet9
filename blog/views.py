@@ -22,8 +22,8 @@ def subscription(request):
     # list les id user (abonnments possibles)  ( les users - les abonements - l'utilisateur )
     my_subscription_user_id = [x.followed_user_id for x in my_subscription_user]
     my_subscription_user_id.append(request.user.id)
-    subcribe = forms.UserSubcribeForm(exclude=my_subscription_user_id)
 
+    subcribe = forms.UserSubcribeForm(exclude=my_subscription_user_id)
     unsubcribe = forms.UnSubcribeForm()
 
     if request.method == 'POST':
@@ -64,7 +64,7 @@ def subscription(request):
 @login_required
 def new_ticket(request):
     if request.method == 'POST':
-        ticket_form = forms.TicketForm(request.POST)
+        ticket_form = forms.TicketForm(request.POST, request.FILES)
         if ticket_form.is_valid():
             create_ticket = ticket_form.save(commit=False)
             create_ticket.user = request.user
@@ -86,10 +86,7 @@ def edit_ticket(request, ticket_id):
             if edit_form.is_valid():
                 edit_form.save()
                 return redirect('posts')
-    context = {
-        'edit_form': edit_form,
-        'edit_ticket': tag_update_ticket
-    }
+    context = {'edit_form': edit_form, 'edit_ticket': tag_update_ticket}
     return render(request, 'blog/edit_ticket.html', context=context)
 
 
@@ -103,10 +100,7 @@ def delete_ticket(request, ticket_id):
             if delete_form.is_valid():
                 ticket.delete()
                 return redirect('posts')
-    context = {
-        'delete_form': delete_form,
-        'ticket_name': ticket.title
-    }
+    context = {'delete_form': delete_form, 'ticket_name': ticket.title}
     return render(request, 'blog/delete_ticket.html', context=context)
 
 
@@ -153,10 +147,7 @@ def new_review(request):
                 create_review.save()
                 return redirect('posts')
             else:
-                context = {
-                    'ticket_form': ticket_form,
-                    'review_form': review_form,
-                    }
+                context = {'ticket_form': ticket_form, 'review_form': review_form,}
                 return render(request, 'blog/create_ticket_review.html', context=context)
     return redirect('/')
 
@@ -172,10 +163,7 @@ def edit_review(request, review_id):
             if edit_form.is_valid():
                 edit_form.save()
                 return redirect('posts')
-    context = {
-        'edit_form': edit_form,
-        'tag_update_review': tag_update_review
-    }
+    context = {'edit_form': edit_form, 'tag_update_review': tag_update_review}
     return render(request, 'blog/edit_review.html', context=context)
 
 
@@ -189,10 +177,7 @@ def delete_review(request, review_id):
             if delete_form.is_valid():
                 review.delete()
                 return redirect('posts')
-    context = {
-        'delete_form': delete_form,
-        'review_headline': review.headline
-    }
+    context = {'delete_form': delete_form, 'review_headline': review.headline}
     return render(request, 'blog/delete_review.html', context=context)
 
 
@@ -203,20 +188,31 @@ def feed(request):
         ticket = Ticket.objects.filter(user=request.user.id).annotate(
                     content_type=Value('TICKET', CharField()), is_review=Count('review')
                     )
+
+        id_review_subscription_user = []
     if request.path == "/flux/":
-        my_id_subscription_user = [x.followed_user_id for x in UserFollows.objects.filter(user=request.user.id)]
-        ticket = Ticket.objects.filter(Q(user=request.user.id) | Q(user__in=my_id_subscription_user)).annotate(
+        id_subscription_user = [x.followed_user_id for x in UserFollows.objects.filter(user=request.user.id)]
+        ticket = Ticket.objects.filter(Q(user=request.user.id) | Q(user__in=id_subscription_user)).annotate(
                 content_type=Value('TICKET', CharField()),
                 is_review=Count('review')
             )
 
-    ticket_id = [x.id for x in ticket]
+        review_subscription_user = Review.objects.filter(Q(user__in=id_subscription_user)).annotate(
+                    content_type=Value('REVIEW', CharField())
+                )
+        id_review_subscription_user = [x.user_id for x in review_subscription_user]
 
-    review = Review.objects.filter(Q(user=request.user.id) | Q(ticket__in=ticket_id)).annotate(
-                content_type=Value('REVIEW', CharField())
+    ticket_id = [x.id for x in ticket]
+    review = Review.objects.filter(
+                    Q(user=request.user.id) |
+                    Q(ticket__in=ticket_id) |
+                    Q(user__in=id_review_subscription_user)
+                ).annotate(
+                    content_type=Value('REVIEW', CharField() )
                 )
 
     all_ticket = Ticket.objects.all()
+
     posts = sorted(chain(ticket, review), key=lambda post: post.time_created, reverse=True)
 
     if request.path == "/posts/":

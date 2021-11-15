@@ -40,9 +40,6 @@ class EditTicketForm(forms.Form):
 
 
 class TicketForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(TicketForm, self).__init__(*args, **kwargs)
-
     class Meta:
         model = Ticket
         exclude = ['user', 'time_created']
@@ -53,9 +50,6 @@ class PostForm(forms.Form):
 
 
 class ReviewForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ReviewForm, self).__init__(*args, **kwargs)
-
     class Meta:
         model = Review
         exclude = ['ticket', 'user', 'time_created']
@@ -67,3 +61,4 @@ class DeleteReviewForm(forms.Form):
 
 class EditReviewForm(forms.Form):
     edit_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+

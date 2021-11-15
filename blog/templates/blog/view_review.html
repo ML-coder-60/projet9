@@ -29,8 +29,13 @@
                 <div class="title_ticket">
                 <h2>{{ ticket.title }}</h2>
                 </div>
-                <div class="description_ticket">
-                    <p>{{ ticket.description }}</p>
+                <div class="body_ticket">
+                    <div class="description_ticket">
+                        <p>{{ ticket.description }}</p>
+                    </div>
+                    <div class="image_ticket">
+                        <img src={{ ticket.image.url }} alt={{post.title}}>
+                    </div>
                 </div>
             {% endif %}
         {% endfor %}

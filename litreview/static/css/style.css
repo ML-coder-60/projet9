@@ -134,6 +134,15 @@ text-align: center;
     display: flex;
 }
 
+.image_ticket{
+    width: 30%;
+    padding-bottom: 5%
+}
+
+.body_ticket {
+    display: flex;
+    flex-direction: row;
+}
 
 .header_ticket, .ask_create_posts, .header_review {
     justify-content: space-around;
