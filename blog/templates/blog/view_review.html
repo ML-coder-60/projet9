@@ -1,40 +1,43 @@
 <div class="view_review">
     <div class="header_review">
         {% if user.id == post.user_id %}
-           <p> Vous avez publié une critique </p>
+           <h1> Vous avez publié une critique </h1>
         {% else %}
-            <p> {{ post.user }} a publié une critique </p>
+            <h1> {{ post.user }} a publié une critique </h1>
         {% endif %}
-        <p>{{post.time_created}}</p>
+        <p class="time">{{post.time_created}}</p>
     </div>
     <section class="review">
         <div class="title_review">
-            <h2> {{post.headline}} Note {{post.rating}}  </h2>
+            <h2> {{post.headline}}</h2>
+            <h2> - </h2>
+            <h2 class="rating">
+                {% for x in '12345' %}
+                    {% if forloop.counter <= post.rating %}
+                        &#9733
+                    {% endif %}
+                {% endfor %}
+            </h2>
         </div>
         <div class="comment_review">
-            <p> {{post.body}} </p>
+            <h1> {{post.body}} </h1>
         </div>
     </section>
     <section class="ticket">
         {%  for ticket in all_ticket %}
             {% if  post.ticket_id == ticket.id %}
-                <div class="header_ticket">
-                    {% if user.id == ticket.user_id %}
-                        <p> Vous avez demandé une critique </p>
-                    {% else %}
-                        <p> {{ ticket.user }} a demandé une critique </p>
-                    {% endif %}
-                        <p>{{ticket.time_created}}</p>
-                </div>
+                <h1> Ticket - {{ ticket.user }} </h1>
                 <div class="title_ticket">
                 <h2>{{ ticket.title }}</h2>
                 </div>
                 <div class="body_ticket">
                     <div class="description_ticket">
-                        <p>{{ ticket.description }}</p>
+                        <p> {{ ticket.description }} </p>
                     </div>
                     <div class="image_ticket">
-                        <img src={{ ticket.image.url }} alt={{post.title}}>
+                        {% if ticket.image %}
+                            <img src={{ticket.image.url}} alt={{post.title}}>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}

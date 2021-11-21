@@ -1,21 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="create_review">
-        <h2>Créer une critique</h2>
-        <form method="post">
-            <div class="ticket">
+        <div>
+            <h2>Créer une critique</h2>
+        </div>
+        <form method="post" enctype="multipart/form-data">
                 <p> Titre </p>
                 {{ticket_form.title}}
                 <p> Description </p>
                 {{ticket_form.description}}
                 <p> Image </p>
                 {{ticket_form.image}}
-            </div>
-            <div class="review">
-                <p> Titre </p>
+                <p> Appréciation </p>
                 {{review_form.headline}}
                 <p> Note </p>
-                {{review_form.rating}}
+                <input type="radio" id="1" name="rating" value="1">   <label for="1"> - 1</label>
+                <input type="radio" id="2" name="rating" value="2">   <label for="2"> - 2</label>
+                <input type="radio" id="3" name="rating" value="3">   <label for="3"> - 3</label>
+                <input type="radio" id="4" name="rating" value="4">   <label for="4"> - 4</label>
+                <input type="radio" id="5" name="rating" value="5">   <label for="5"> - 5</label>
                 <p> Commentaire </p>
                 {{review_form.body}}
                 {{ new_review }}
@@ -23,7 +26,6 @@
                 <p>
                     <button type="submit" >Envoyer</button>
                 </p>
-            </div>
         </form>
     </div>
 {% endblock content %}

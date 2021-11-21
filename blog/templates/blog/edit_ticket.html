@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="edit_ticket">
-        <h2>Modifier le ticket</h2>
-        <form method="post">
+        <h2>Modifier votre ticket</h2>
+        <form method="post" enctype="multipart/form-data">
+            {{ update_ticket }}
+            {% csrf_token %}
             <p>Titre</p>
             {{edit_form.title}}
             <p> Description </p>
             {{edit_form.description}}
             <p> Image </p>
-            {{edit_form.image}}
-            {{ tag_update_review }}
-            {% csrf_token %}
+            <div>
+                {% if post.image %}
+                        <img src={{post.image.url}} alt={{post.title}}>
+                {% endif %}
+                <p>
+                    <input type="file" name="image" accept="image/*" id="id_image">
+                </p>
+            </div>
             <p>
-                <button type="submit" >Sauvegarder</button>
+                <button type="submit" >Mise à Jour </button>
             </p>
         </form>
     </div>

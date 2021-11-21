@@ -50,6 +50,7 @@ class PostForm(forms.Form):
 
 
 class ReviewForm(forms.ModelForm):
+
     class Meta:
         model = Review
         exclude = ['ticket', 'user', 'time_created']
@@ -61,4 +62,3 @@ class DeleteReviewForm(forms.Form):
 
 class EditReviewForm(forms.Form):
     edit_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
-

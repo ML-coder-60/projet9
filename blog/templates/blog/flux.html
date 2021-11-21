@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <section class="flux">
+        <h2>Flux</h2>
         <div class="feed">
             {% for post in posts %}
                 {% if post.content_type == 'TICKET' %}

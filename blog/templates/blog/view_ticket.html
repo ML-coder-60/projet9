@@ -1,21 +1,23 @@
 <section class="ticket">
     <div class="header_ticket">
         {% if user.id == post.user_id %}
-           <p> Vous avez demandé une critique </p>
+           <h1> Vous avez demandé une critique </h1>
         {% else %}
-            <p> {{ post.user }} a demandé une critique </p>
+            <h1> {{ post.user }} a demandé une critique </h1>
         {% endif %}
-        <p>{{post.time_created}}</p>
+        <p class="time" >{{post.time_created}}</p>
     </div>
     <div class="title_ticket">
         <h2>{{ post.title }}</h2>
     </div>
     <div class="body_ticket">
         <div class="description_ticket">
-            <p>{{ post.description }}</p>
+            <p> {{ post.description }} <p>
         </div>
         <div class="image_ticket">
-            <img src={{ post.image.url }} alt={{post.title}}>
+            {% if post.image %}
+                <img src={{post.image.url}} alt={{post.title}}>
+            {% endif %}
         </div>
     </div>
     <div class="post_ticket">

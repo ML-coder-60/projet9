@@ -79,14 +79,14 @@ def new_ticket(request):
 def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
     edit_form = forms.TicketForm(instance=ticket)
-    tag_update_ticket = forms.EditTicketForm()
     if request.method == 'POST':
+        update_ticket = forms.EditTicketForm()
         if 'edit_ticket' in request.POST:
-            edit_form = forms.TicketForm(request.POST, instance=ticket)
+            edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
             if edit_form.is_valid():
                 edit_form.save()
                 return redirect('posts')
-    context = {'edit_form': edit_form, 'edit_ticket': tag_update_ticket}
+    context = {'edit_form': edit_form, 'update_ticket': update_ticket, 'ticket': ticket}
     return render(request, 'blog/edit_ticket.html', context=context)
 
 
@@ -120,20 +120,16 @@ def new_review(request):
             post_review = forms.PostForm()
             ticket = get_object_or_404(Ticket, id=request.POST['ticket_id'])
             if ticket:
-                ticket_form = forms.TicketForm(instance=ticket)
-            else:
-                ticket_form = forms.TicketForm()
-            review_form = forms.ReviewForm()
-            context = {
-                    'ticket_form': ticket_form,
-                    'review_form': review_form,
-                    'ticket': ticket.id,
-                    'new_review': post_review,
-            }
-            return render(request, 'blog/create_review.html', context=context)
+                review_form = forms.ReviewForm()
+                context = {
+                        'ticket': ticket,
+                        'review_form': review_form,
+                        'new_review': post_review,
+                }
+                return render(request, 'blog/create_review.html', context=context)
         else:
+            ticket_form = forms.TicketForm(request.POST, request.FILES)
             review_form = forms.ReviewForm(request.POST)
-            ticket_form = forms.TicketForm(request.POST)
             if ticket_form.is_valid() and review_form.is_valid():
                 create_ticket = ticket_form.save(commit=False)
                 create_ticket.user = request.user
@@ -147,7 +143,7 @@ def new_review(request):
                 create_review.save()
                 return redirect('posts')
             else:
-                context = {'ticket_form': ticket_form, 'review_form': review_form,}
+                context = {'ticket_form': ticket_form, 'review_form': review_form}
                 return render(request, 'blog/create_ticket_review.html', context=context)
     return redirect('/')
 
@@ -186,10 +182,15 @@ def feed(request):
     ticket = []
     if request.path == "/posts/":
         ticket = Ticket.objects.filter(user=request.user.id).annotate(
-                    content_type=Value('TICKET', CharField()), is_review=Count('review')
+                    content_type=Value('TICKET', CharField()),
+                    is_review=Count('review')
                     )
+        review = Review.objects.filter(
+                    Q(user=request.user.id)
+                ).annotate(
+                    content_type=Value('REVIEW', CharField())
+                )
 
-        id_review_subscription_user = []
     if request.path == "/flux/":
         id_subscription_user = [x.followed_user_id for x in UserFollows.objects.filter(user=request.user.id)]
         ticket = Ticket.objects.filter(Q(user=request.user.id) | Q(user__in=id_subscription_user)).annotate(
@@ -201,18 +202,17 @@ def feed(request):
                     content_type=Value('REVIEW', CharField())
                 )
         id_review_subscription_user = [x.user_id for x in review_subscription_user]
+        ticket_id = [x.id for x in ticket]
 
-    ticket_id = [x.id for x in ticket]
-    review = Review.objects.filter(
+        review = Review.objects.filter(
                     Q(user=request.user.id) |
                     Q(ticket__in=ticket_id) |
                     Q(user__in=id_review_subscription_user)
                 ).annotate(
-                    content_type=Value('REVIEW', CharField() )
+                    content_type=Value('REVIEW', CharField())
                 )
 
     all_ticket = Ticket.objects.all()
-
     posts = sorted(chain(ticket, review), key=lambda post: post.time_created, reverse=True)
 
     if request.path == "/posts/":

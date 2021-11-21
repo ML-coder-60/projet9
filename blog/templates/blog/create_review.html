@@ -1,18 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="create_review">
+<div class="create_review">
         <h2>Vous êtes en train de poster en réponse à</h2>
-        {{ ticket_form }}
-        <div class="review">
+        <section class="ticket">
+           <div class="header_ticket">
+               <p> {{ ticket.user }} a demandé une critique </p>
+               <p>{{ticket.time_created}}</p>
+                </div>
+                <div class="title_ticket">
+                <h2>{{ ticket.title }}</h2>
+                </div>
+                <div class="body_ticket">
+                    <div class="description_ticket">
+                        <p>{{ ticket.description }}</p>
+                    </div>
+                    <div class="image_ticket">
+                        {% if ticket.image %}
+                           <img src={{ticket.image.url}} alt={{post.title}}>
+                        {% endif %}
+                    </div>
+                </div>
+        </section>
+         <div class="review">
             <form method="post">
                 <p> Titre </p>
                 {{review_form.headline}}
                 <p> Note </p>
-                {{review_form.rating}}
+                <input type="radio" id="1" name="rating" value="1">   <label for="1"> - 1</label>
+                <input type="radio" id="2" name="rating" value="2">   <label for="2"> - 2</label>
+                <input type="radio" id="3" name="rating" value="3">   <label for="3"> - 3</label>
+                <input type="radio" id="4" name="rating" value="4">   <label for="4"> - 4</label>
+                <input type="radio" id="5" name="rating" value="5">   <label for="5"> - 5</label>
                 <p> Commentaire </p>
                 {{review_form.body}}
                 {{ new_review }}
-                <input type="hidden" name="ticket_id" value="{{ticket}}">
+                <input type="hidden" name="ticket_id" value="{{ticket.id}}">
                 {% csrf_token %}
                 <p>
                     <button type="submit" >Envoyer</button>

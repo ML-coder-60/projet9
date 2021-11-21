@@ -5,7 +5,7 @@ html {
 }
 
 nav li {
-    margin-right: 10px;   /* 15px entre chaque élemenents */
+    margin: 3px;
 }
 
 body {
@@ -20,30 +20,20 @@ form {
 
 header {
     display: flex;
-    flex-direction: row;
     background-color: #005777;
     justify-content: space-around;
 }
 
 .center{
     flex: 0.1;
-    text-align:  center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-.logo{
-    flex: 0.1;
-    text-align:  center;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
-.menu {
-    text-align:  center;
+.logo{
+    flex: 0.1;
     display: flex;
-    flex-direction: row;
     justify-content: space-around;
 }
 
@@ -52,32 +42,12 @@ header {
     justify-content: space-around;
 }
 
-.login{
-    flex: 0.5;
-    text-align:  right;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-button {
-    text-align: center;
-}
 nav ul {
-    text-align:  center;
     display: flex;
     list-style-type: none;  /* Supp les puces */
     justify-content: space-around;
 }
 
-ul.errorlist{
-    text-align:  left;
-    display: none;
-    list-style-type: none;
-    width: 30%;
-    margin: 5px;
-}
 
 form#ul {
     text-align: center;
@@ -101,10 +71,22 @@ a:visited {
     color: inherit;         /* force la couleur des liens avec la couleur défini dans body  */
 }
 
+.inscription, .login {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.inscription button {
+    margin-right: auto;
+}
+
 img{
     height: auto;
-    width: 50%;
-    object-fit: contain;
+    min-width: 15px;
+    max-width: 50%;
+    margin-left: 5%;
 }
 
 /* page Abonnements */
@@ -123,14 +105,19 @@ text-align: center;
 }
 
 /* css post flux */
-.posts, .flux {
+.posts {
     flex-direction: column;
     margin: 1%;
     flex: 0.7;
 }
 
+.flux {
+    margin: 1%;
+    flex: 0.7;
+}
+
 /* css ticket */
-.posts, .header_ticket, .post_ticket, .ask_create_posts, .edit_ticket, .ticket, .review, .header_review, .post_review, .create_review {
+.posts, .header_ticket, .post_ticket, .ask_create_posts, .edit_ticket, .ticket, .review, .header_review, .post_review, .create_review, .title_review {
     display: flex;
 }
 
@@ -150,7 +137,6 @@ text-align: center;
 
 .edit_ticket, .ticket  {
     flex-direction: column;
-    flex-grow: 2;
 }
 
 .create_review, .review {
@@ -162,7 +148,7 @@ text-align: center;
     margin-inline-end: 30%
 }
 
-.edit_ticket input, .edit_ticket textarea, .ticket input, .ticket textarea {
+.edit_ticket input, .edit_ticket textarea, .ticket textarea {
     width: 90%;
     margin-left: 5%;
 }
@@ -179,10 +165,12 @@ text-align: center;
    display: flex;
 }
 
+
 .description_ticket p , .comment_review p  {
     color: azure;
-    margin-top: auto;
-    margin-bottom: auto;
+    word-break: break-all;
+    margin: auto;
+    padding-right: 5px;
 }
 
 .ticket,  .view_review{
@@ -193,4 +181,13 @@ text-align: center;
 .title_ticket h2, .title_review h2 {
    margin-left: 5%;
    text-align: left;
+}
+
+
+.time {
+    font-size: min(max(0.5rem, calc(1rem + ((1vw - 0.68rem) * 1.38))), 2rem);
+}
+
+.rating {
+    color: yellow;
 }
