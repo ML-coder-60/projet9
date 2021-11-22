@@ -8,18 +8,23 @@
     </head>
     <body id="{% block bodyId %}genericPage{% endblock %}">
         <header>
-            <div class="Logo">  <img src="{% static 'img/16004297044411_P7.png' %}" alt="LITReview"> </div>
+            <div class="Logo">
+                <p>
+                    <img src="{% static 'img/16004297044411_P7.png' %}" alt="LITReview"> </div>
+                </p>
             <div class="center">LITReview</div>
+            <div>
             <nav class="menu">
                 {%  if user.is_authenticated %}
                 <ul>
                     <li><a href="{% url 'flux' %}">Flux</a></li>
                     <li><a href="{% url 'posts' %}">Posts</a></li>
                     <li><a href="{% url 'subscription' %}">Abonnements</a></li>
-                    <li><a href="{% url 'logout' %}">Déconnection</a></li>
+                    <li><a href="{% url 'logout' %}">Déconnexion</a></li>
                 </ul>
                 {% endif %}
             </nav>
+            </div>
         </header>
         <section class="content">
             {% block content %}{% endblock content %}
