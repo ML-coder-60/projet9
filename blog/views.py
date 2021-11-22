@@ -8,61 +8,11 @@ from django.db.models import Q, Count, CharField, Value
 
 
 @login_required
-def subscription(request):
-    """
-        List Mes abonnements et mes abonnés
-        Ajouter un abonnements
-
-    """
-    # list mes abonnements
-    my_subscription_user = UserFollows.objects.filter(user=request.user.id)
-    # list mes abonnés
-    my_subscribers = UserFollows.objects.filter(followed_user=request.user.id)
-
-    # list les id user (abonnments possibles)  ( les users - les abonements - l'utilisateur )
-    my_subscription_user_id = [x.followed_user_id for x in my_subscription_user]
-    my_subscription_user_id.append(request.user.id)
-
-    subcribe = forms.UserSubcribeForm(exclude=my_subscription_user_id)
-    unsubcribe = forms.UnSubcribeForm()
-
-    if request.method == 'POST':
-        if 'subcribe' in request.POST:
-            form = forms.SubscriptionForm(request.POST)
-            if form.is_valid():
-                subscribe = form.save(commit=False)
-                # set the user to the user before saving the model
-                subscribe.user = request.user
-                # now we can save
-                subscribe.save()
-            return redirect('subscription')
-        if 'unsubcribe' in request.POST:
-            form = forms.UnSubcribeForm(request.POST)
-            if form.is_valid():
-                # select the user/falower_user to the user before del
-                unsubscribe = get_object_or_404(
-                            UserFollows,
-                            user=request.user,
-                            followed_user_id=request.POST['followed_user_id']
-                            )
-                # now we can del
-                unsubscribe.delete()
-                return redirect('subscription')
-            return redirect('subscription')
-    return render(
-        request,
-        'blog/subscription.html',
-        {
-            'subcribe': subcribe,
-            'unsubcribe': unsubcribe,
-            'my_subscription': my_subscription_user,
-            'my_subscribers': my_subscribers
-        }
-    )
-
-
-@login_required
 def new_ticket(request):
+    """
+        Page create ticket
+    """
+
     if request.method == 'POST':
         ticket_form = forms.TicketForm(request.POST, request.FILES)
         if ticket_form.is_valid():
@@ -77,6 +27,9 @@ def new_ticket(request):
 
 @login_required
 def edit_ticket(request, ticket_id):
+    """
+        Page change  ticket
+    """
     ticket = get_object_or_404(Ticket, id=ticket_id)
     edit_form = forms.TicketForm(instance=ticket)
     if request.method == 'POST':
@@ -86,12 +39,16 @@ def edit_ticket(request, ticket_id):
             if edit_form.is_valid():
                 edit_form.save()
                 return redirect('posts')
-    context = {'edit_form': edit_form, 'update_ticket': update_ticket, 'ticket': ticket}
-    return render(request, 'blog/edit_ticket.html', context=context)
+        context = {'edit_form': edit_form, 'update_ticket': update_ticket, 'ticket': ticket}
+        return render(request, 'blog/edit_ticket.html', context=context)
+    return redirect('posts')
 
 
 @login_required
 def delete_ticket(request, ticket_id):
+    """
+        Page delete ticket
+    """
     ticket = get_object_or_404(Ticket, id=ticket_id)
     delete_form = forms.DeleteTicketForm()
     if request.method == 'POST':
@@ -106,6 +63,9 @@ def delete_ticket(request, ticket_id):
 
 @login_required
 def new_review(request):
+    """
+        Page create review
+    """
     if request.method == 'POST':
         if 'post_review' in request.POST:
             review_form = forms.ReviewForm(request.POST)
@@ -150,6 +110,9 @@ def new_review(request):
 
 @login_required
 def edit_review(request, review_id):
+    """
+        Page change review
+    """
     review = get_object_or_404(Review, id=review_id)
     edit_form = forms.ReviewForm(instance=review)
     tag_update_review = forms.EditReviewForm()
@@ -165,6 +128,9 @@ def edit_review(request, review_id):
 
 @login_required
 def delete_review(request, review_id):
+    """
+        Page delete review
+    """
     review = get_object_or_404(Review, id=review_id)
     delete_form = forms.DeleteReviewForm()
     if request.method == 'POST':
@@ -178,8 +144,71 @@ def delete_review(request, review_id):
 
 
 @login_required
+def subscription(request):
+    """
+        Pages
+            List My subscriptions
+            My subscribers
+            Add a subscription
+            Delete a subscription
+    """
+    # list my subscriptions
+    my_subscription_user = UserFollows.objects.filter(user=request.user.id)
+    # list my subscribers
+    my_subscribers = UserFollows.objects.filter(followed_user=request.user.id)
+
+    # list user id (possible subscriptions)  (users - my subscriptions - user )
+    my_subscription_user_id = [x.followed_user_id for x in my_subscription_user]
+    my_subscription_user_id.append(request.user.id)
+    subscribe = forms.UserSubscribeForm(exclude=my_subscription_user_id)
+
+    unsubscribe = forms.UnSubscriptionForm()
+
+    if request.method == 'POST':
+        if 'subscribe' in request.POST:
+            form = forms.SubscriptionForm(request.POST)
+            if form.is_valid():
+                subscribe = form.save(commit=False)
+                # set the user to the user before saving the model
+                subscribe.user = request.user
+                # now we can save
+                subscribe.save()
+            return redirect('subscription')
+        if 'unsubscribe' in request.POST:
+            form = forms.UnSubscriptionForm(request.POST)
+            if form.is_valid():
+                # select the user/falower_user to the user before del
+                unsubscribe = get_object_or_404(
+                            UserFollows,
+                            user=request.user,
+                            followed_user_id=request.POST['followed_user_id']
+                            )
+                # now we can del
+                unsubscribe.delete()
+                return redirect('subscription')
+            return redirect('subscription')
+    return render(
+        request,
+        'blog/subscription.html',
+        {
+            'subscribe': subscribe,
+            'unsubscribe': unsubscribe,
+            'my_subscription': my_subscription_user,
+            'my_subscribers': my_subscribers
+        }
+    )
+
+
+@login_required
 def feed(request):
+    """
+        if request.path = posts
+            Display posts
+        if request.path = flux
+            Display feed
+    """
     ticket = []
+    review = []
     if request.path == "/posts/":
         ticket = Ticket.objects.filter(user=request.user.id).annotate(
                     content_type=Value('TICKET', CharField()),

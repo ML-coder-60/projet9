@@ -7,7 +7,7 @@
                 <td>
                     <form method="post">
                          {% csrf_token %}
-                         {{ unsubcribe }}
+                         {{ unsubscribe }}
                         <input type="hidden" name="followed_user_id" value={{user.followed_user_id}} id="id_unsubcribe">
                         <button type="submit" >Désabonner</button>
                     </form>

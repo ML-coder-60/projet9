@@ -11,8 +11,8 @@
             {{edit_form.description}}
             <p> Image </p>
             <div>
-                {% if post.image %}
-                        <img src={{post.image.url}} alt={{post.title}}>
+                {% if ticket.image %}
+                        <img src={{ticket.image.url}} alt={{ticket.title}}>
                 {% endif %}
                 <p>
                     <input type="file" name="image" accept="image/*" id="id_image">
