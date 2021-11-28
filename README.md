@@ -1,57 +1,59 @@
 # Projet9: Développez une application Web en utilisant Django
 
-Le projet9: C'est une application contruit avec Django et SQLite, 
+Le projet9: C'est une application contruite avec Django et SQLite, 
 
 ## Les fonctionalités principales attendues:
 
 - Demander des critiques de livres ou d’articles, en créant un ticket
 - Publier des critiques de livres ou d’articles
  
-Pour des informations complèmentaire consulter les fichiers 
+Pour des informations complèmentaires, consultez les fichiers 
  
 - LITReview - Wireframes - FR.pd
 - LITReview - cahier des charges.pdf
 
 ## Installation
 
-### Récupéré les sources du projet  
+### Récupérer les sources du projet  
 
-Taper les commandes suivantes: 
+Tapez les commandes suivantes: 
 
 `$ git clone https://github.com/ML-coder-60/projet9.git`
+
 `$ cd  projet9`
 
-### Installation/initialisation de l'environnemt virtuel
+### Installation/initialisation de l'envirronnemt virtuel
  
-Lancer les commandes suivantes:  
+Lancez les commandes suivantes:  
 
 `$ virtualenv venv -p python3`
+
 `$ source venv/bin/activate`
 
 
 ### Installation de Django 
 
-Tapper les commandes suivantes:
+Tappez les commandes suivantes:
 
-` (venv) $ pip install --upgrade pip`
+`(venv) $ pip install --upgrade pip`
 
-` (venv) $ pip install -r requirements.txt`
+`(venv) $ pip install -r requirements.txt`
 
 `(venv) $ python -m django --version`
 
 
-### Ececuter Django 
+### Executer Django 
 
-Lancer les commandes suivantes: 
+Lancez la commande suivante: 
 
 `(venv)  python manage.py runserver`
 
-L'application est accéssible depuis url http://127.0.0.1:8000/.
+L'application est accessible depuis url http://127.0.0.1:8000/.
 
-Depuis la page d'acceuil un utilisateur peut 
+Depuis la page d'accueil un utilisateur peut 
 
-1. S'enregister/Se connecter
-2. L'authentification est obligatoire pour accèder aux fontionalités du programme 
+1. S'enregister/se connecter
+2. L'authentification est obligatoire pour accèder aux fonctionalités du programme 
 
 
 ## Rapport Flake8 du projet au format Html 
